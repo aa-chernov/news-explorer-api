@@ -1,7 +1,6 @@
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const NotFoundError = require('../errors/notFoundError');
 const BadRequestError = require('../errors/badRequestError');
 const UnauthorizedError = require('../errors/unauthorizedError');
 const ConflictError = require('../errors/conflictError');
@@ -75,19 +74,15 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-module.exports.getUserById = (req, res, next) => {
+module.exports.getUser = (req, res, next) => {
   User.findById(req.params._id)
     .then((user) => {
-      if (!user) {
-        next(new NotFoundError('Нет пользователя с таким id'));
-      } else {
-        res.send({
-          data: {
-            name: user.name,
-            email: user.email,
-          },
-        });
-      }
+      res.send({
+        data: {
+          name: user.name,
+          email: user.email,
+        },
+      });
     })
     .catch(next);
 };
