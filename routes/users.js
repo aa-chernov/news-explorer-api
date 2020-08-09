@@ -4,8 +4,7 @@ const validator = require('validator');
 const auth = require('../middlewares/auth');
 const BadRequestError = require('../errors/badRequestError');
 const {
-  getUserById,
-  getUsers,
+  getUser,
   createUser,
   login,
 } = require('../controllers/users');
@@ -21,9 +20,7 @@ usersRouter
     body: Joi.object().keys({
       email: Joi.string().required().email(),
       password: Joi.string().required().min(8),
-      name: Joi.string().required().min(2).max(30),
-      about: Joi.string().required().min(2).max(30),
-      avatar: Joi.string()
+      name: Joi.string().required().min(2).max(30)
         .required()
         .custom((url) => {
           if (!validator.isURL(url)) {
@@ -34,12 +31,6 @@ usersRouter
     }),
   }), createUser);
 usersRouter
-  .get('/users', auth, getUsers)
-  .get('/users/:_id', auth,
-    celebrate({
-      params: Joi.object().keys({
-        _id: Joi.string().length(24).hex(),
-      }),
-    }), getUserById);
+  .get('/users/me', auth, getUser);
 
 module.exports = usersRouter;
