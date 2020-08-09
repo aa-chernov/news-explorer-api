@@ -6,9 +6,14 @@ const ForbiddenError = require('../errors/forbiddenError');
 const Article = require(path.join('..', 'models', 'article'));
 
 module.exports.getArticles = (req, res, next) => {
-  Article
-    .find({})
-    .then((articles) => res.send({ data: articles }))
+  Article.find({ owner: req.user._id })
+    .then((articles) => {
+      if (!articles) {
+        next(new NotFoundError('Сохраненные статьи отсутствуют'));
+      } else {
+        res.send({ data: articles });
+      }
+    })
     .catch(next);
 };
 
