@@ -1,25 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-/*
-keyword — ключевое слово, по которому статью нашли. Обязательное поле-строка.
-
-title — заголовок статьи. Обязательное поле-строка.
-
-text — текст статьи. Обязательное поле-строка.
-
-date — дата статьи. Обязательное поле-строка.
-
-source — источник статьи. Обязательное поле-строка.
-
-link — ссылка на статью. Обязательное поле-строка. Должно быть URL-адресом.
-
-image — ссылка на иллюстрацию к статье. Обязательное поле-строка. Должно быть URL-адресом.
-
-owner — _id пользователя, сохранившего статью. Нужно задать поведение по умолчанию,
-        чтобы база данных не возвращала это поле.
-*/
-
 const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
@@ -65,6 +46,7 @@ const articleSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'user',
+    select: false,
   },
 });
 
