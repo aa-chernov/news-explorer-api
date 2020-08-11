@@ -1,6 +1,5 @@
 const constants = require('../constants');
 
-// eslint-disable-next-line no-unused-vars
 module.exports = (err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
@@ -9,4 +8,5 @@ module.exports = (err, req, res, next) => {
     .send({
       message: statusCode === 500 ? constants.SERVER_ERROR : message,
     });
+  next();
 };

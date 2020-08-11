@@ -1,16 +1,13 @@
-const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 const BadRequestError = require('../errors/badRequestError');
 const UnauthorizedError = require('../errors/unauthorizedError');
 const ConflictError = require('../errors/conflictError');
 const constants = require('../constants');
 
-// eslint-disable-next-line import/no-dynamic-require
-const User = require(path.join('..', 'models', 'user'));
 const { JWT_SECRET } = process.env;
 
-// eslint-disable-next-line consistent-return
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   try {
@@ -34,8 +31,8 @@ module.exports.login = (req, res, next) => {
           next(new UnauthorizedError(constants.AUTH_ERROR));
         });
     }
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    return next(err);
   }
 };
 

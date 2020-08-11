@@ -43,6 +43,5 @@ app.use(errors());
 app.use('/', serverError);
 
 app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
   console.log(`Слушаем порт: ${PORT}`);
 });
