@@ -72,14 +72,10 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.params._id)
-    .then((user) => {
-      res.send({
-        data: {
-          name: user.name,
-          email: user.email,
-        },
-      });
-    })
+  User.findById(req.user._id)
+    .then((user) => res.send({
+      email: user.email,
+      name: user.name,
+    }))
     .catch(next);
 };
