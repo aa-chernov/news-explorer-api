@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const constants = require('../constants');
 
 const articleSchema = new mongoose.Schema({
   keyword: {
@@ -15,7 +16,7 @@ const articleSchema = new mongoose.Schema({
   text: {
     type: String,
     required: true,
-    minlength: 1,
+    minlength: 2,
   },
   date: {
     type: Date,
@@ -31,7 +32,7 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => validator.isURL(url),
-      message: 'Здесь должна быть ссылка',
+      message: constants.NOT_URL,
     },
   },
   image: {
@@ -39,7 +40,7 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => validator.isURL(url),
-      message: 'Здесь должна быть ссылка',
+      message: constants.NOT_URL,
     },
   },
   owner: {

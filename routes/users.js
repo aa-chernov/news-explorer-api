@@ -8,6 +8,7 @@ const {
   createUser,
   login,
 } = require('../controllers/users');
+const constants = require('../constants');
 
 usersRouter
   .post('/signin', celebrate({
@@ -24,13 +25,13 @@ usersRouter
         .required()
         .custom((url) => {
           if (!validator.isURL(url)) {
-            throw new BadRequestError('Введите URL-ссылку');
+            throw new BadRequestError(constants.NOT_URL);
           }
           return url;
         }),
     }),
   }), createUser);
 usersRouter
-  .get('/users/me', auth, getUser);
+  .get('/me', auth, getUser);
 
 module.exports = usersRouter;

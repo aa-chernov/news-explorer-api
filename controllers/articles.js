@@ -2,6 +2,8 @@ const path = require('path');
 const BadRequestError = require('../errors/badRequestError');
 const NotFoundError = require('../errors/notFoundError');
 const ForbiddenError = require('../errors/forbiddenError');
+const constants = require('../constants');
+
 // eslint-disable-next-line import/no-dynamic-require
 const Article = require(path.join('..', 'models', 'article'));
 
@@ -9,7 +11,7 @@ module.exports.getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
     .then((articles) => {
       if (!articles) {
-        next(new NotFoundError('Сохраненные статьи отсутствуют'));
+        next(new NotFoundError(constants.NO_ARTICLES));
       } else {
         res.send({ data: articles });
       }
@@ -42,7 +44,7 @@ module.exports.createArticle = (req, res, next) => {
       .send({ data: article, message: `Создана статья: "${title}"` }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Упс! Что-то не так...'));
+        next(new BadRequestError(constants.BAD_REQ));
       } else {
         next(err);
       }
@@ -54,9 +56,9 @@ module.exports.deleteArticle = (req, res, next) => {
     // eslint-disable-next-line consistent-return
     .then((article) => {
       if (!article) {
-        next(new NotFoundError('Нет такой статьи'));
+        next(new NotFoundError(constants.NO_ARTICLE));
       } else if (article.owner.toString() !== req.user._id) {
-        next(new ForbiddenError('Вы не можете удалить эту статью'));
+        next(new ForbiddenError(constants.NO_RIGHTS));
       } else {
         return Article.findByIdAndRemove(req.params._id)
           .then((articleForDel) => {

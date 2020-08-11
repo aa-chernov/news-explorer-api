@@ -1,4 +1,3 @@
-require('dotenv').config();
 const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,11 +11,11 @@ const serverError = require('./middlewares/serverError');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT, HOST } = process.env;
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/news-explorer', {
+mongoose.connect(HOST, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

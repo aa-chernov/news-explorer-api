@@ -4,23 +4,23 @@ const jwt = require('jsonwebtoken');
 const BadRequestError = require('../errors/badRequestError');
 const UnauthorizedError = require('../errors/unauthorizedError');
 const ConflictError = require('../errors/conflictError');
+const constants = require('../constants');
 
 // eslint-disable-next-line import/no-dynamic-require
 const User = require(path.join('..', 'models', 'user'));
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { JWT_SECRET } = process.env;
 
 // eslint-disable-next-line consistent-return
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      throw new BadRequestError('Данные пользователя введены не полностью');
+      throw new BadRequestError(constants.NO_USER_DATA);
     } else {
       return User.findUserByCredentials(email, password)
         .then((user) => {
           const token = jwt.sign(
-            { _id: user._id },
-            NODE_ENV === 'production' ? JWT_SECRET : 'super-puper-dev-secret', { expiresIn: '7d' },
+            { _id: user._id }, JWT_SECRET, { expiresIn: '7d' },
           );
           res
             .cookie('jwt', token, {
@@ -31,7 +31,7 @@ module.exports.login = (req, res, next) => {
             .send({ _id: user._id, message: 'Авторизация выполнена успешно' });
         })
         .catch(() => {
-          next(new UnauthorizedError('Ошибка авторизации'));
+          next(new UnauthorizedError(constants.AUTH_ERROR));
         });
     }
   } catch (error) {
@@ -65,9 +65,9 @@ module.exports.createUser = (req, res, next) => {
       }))
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
-        next(new ConflictError('Пользователь уже существует'));
+        next(new ConflictError(constants.USER_DUPLICATE));
       } else if (err.name === 'ValidationError') {
-        next(new BadRequestError('Упс! Что-то не так...'));
+        next(new BadRequestError(constants.BAD_REQ));
       } else {
         next(err);
       }
