@@ -27,14 +27,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(requestLogger);
 
-// ------УДАЛИТЬ ПОСЛЕ ТЕСТИРОВАНИЯ------
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-// ------УДАЛИТЬ ПОСЛЕ ТЕСТИРОВАНИЯ------
-
 app.use('/', articlesPath);
 app.use('/', usersPath);
 app.use('/', resourcePath);
