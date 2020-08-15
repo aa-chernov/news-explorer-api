@@ -6,7 +6,7 @@ const UnauthorizedError = require('../errors/unauthorizedError');
 const ConflictError = require('../errors/conflictError');
 const constants = require('../constants');
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET } = require('../config');
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;

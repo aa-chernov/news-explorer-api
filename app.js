@@ -5,14 +5,13 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const articlesPath = require('./routes/articles');
-const usersPath = require('./routes/users');
-const resourcePath = require('./routes/resource');
+const { articlesRouter, usersRouter, resourceRouter } = require('./routes/index');
 const serverError = require('./middlewares/serverError');
+const limiter = require('./middlewares/limiter');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT, HOST } = process.env;
+const { PORT, HOST } = require('./config');
 
 const app = express();
 
@@ -26,10 +25,11 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(requestLogger);
+app.use(limiter);
 
-app.use('/', articlesPath);
-app.use('/', usersPath);
-app.use('/', resourcePath);
+app.use('/', articlesRouter);
+app.use('/', usersRouter);
+app.use('/', resourceRouter);
 app.use(errorLogger);
 app.use(errors());
 app.use('/', serverError);
