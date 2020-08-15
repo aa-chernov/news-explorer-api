@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const limiter = require('./middlewares/limiter');
 const { articlesRouter, usersRouter, resourceRouter } = require('./routes/index');
 const serverError = require('./middlewares/serverError');
 
@@ -21,7 +20,6 @@ mongoose.connect('mongodb://localhost:27017/news-explorer', {
   useFindAndModify: false,
 });
 
-app.use(limiter);
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
