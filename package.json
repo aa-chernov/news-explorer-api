@@ -1,6 +1,6 @@
 {
   "name": "news-explorer-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Диплом в Я.Практикуме. Бэкенд",
   "main": "app.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
     "express-winston": "^4.0.5",
     "helmet": "^3.23.3",
     "joi": "^17.1.1",
