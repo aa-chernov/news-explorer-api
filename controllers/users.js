@@ -28,7 +28,7 @@ module.exports.login = (req, res, next) => {
             .send({ _id: user._id, message: 'Авторизация выполнена успешно' });
         })
         .catch(() => {
-          next(new UnauthorizedError(constants.AUTH_ERROR));
+          next(new UnauthorizedError(constants.USER_DATA_ERROR));
         });
     }
   } catch (err) {
