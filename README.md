@@ -9,8 +9,12 @@ __version 0.0.3__
 ### Ссылки на проект:
 
 - публичный IP-адрес: `84.201.146.63`
+
 - доменное имя: `https://news-explorers.tk`
 - поддомен API: `https://api.news-explorers.tk`
+
+- доменное имя: `https://news-explorers.ml`
+- поддомен API: `https://api.news-explorers.ml`
 
 ### Версии:
 
