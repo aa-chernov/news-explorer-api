@@ -24,8 +24,8 @@ mongoose.connect(HOST, {
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(requestLogger);
 app.use(limiter);
+app.use(requestLogger);
 
 app.use('/', articlesRouter);
 app.use('/', usersRouter);
