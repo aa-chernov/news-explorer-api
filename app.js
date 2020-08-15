@@ -11,7 +11,7 @@ const limiter = require('./middlewares/limiter');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT, HOST } = require('./config');
+const { PORT = 3000, HOST = 'mongodb://localhost:27017/news-explorer' } = process.env;
 
 const app = express();
 
