@@ -11,12 +11,12 @@ const serverError = require('./middlewares/serverError');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT } = require('./config');
+const { PORT, HOST } = require('./config');
 
 const app = express();
 
-// mongoose.connect(HOST, {
-mongoose.connect('mongodb://localhost:27017/news-explorer', {
+mongoose.connect(HOST, {
+// mongoose.connect('mongodb://localhost:27017/news-explorer', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
