@@ -5,7 +5,6 @@ const auth = require('../middlewares/auth');
 const BadRequestError = require('../errors/badRequestError');
 const { getArticles, createArticle, deleteArticle } = require('../controllers/articles');
 const constants = require('../constants');
-const limiter = require('../middlewares/limiter');
 
 articlesRouter.route('/articles')
   .get(auth, getArticles)
@@ -30,13 +29,13 @@ articlesRouter.route('/articles')
           return value;
         }),
       }),
-    }), limiter, createArticle);
+    }), createArticle);
 
 articlesRouter.delete('/articles/:_id', auth,
   celebrate({
     params: Joi.object().keys({
       _id: Joi.string().length(24).hex(),
     }),
-  }), limiter, deleteArticle);
+  }), deleteArticle);
 
 module.exports = articlesRouter;
