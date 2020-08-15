@@ -13,9 +13,6 @@ __version 0.0.3__
 - доменное имя: `https://news-explorers.tk`
 - поддомен API: `https://api.news-explorers.tk`
 
-- доменное имя: `https://news-explorers.ml`
-- поддомен API: `https://api.news-explorers.ml`
-
 ### Версии:
 
 - 0.0.1 Инициализация инфраструктурных файлов;
