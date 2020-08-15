@@ -21,10 +21,10 @@ mongoose.connect(HOST, {
   useFindAndModify: false,
 });
 
+app.use(limiter);
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(limiter);
 app.use(requestLogger);
 
 app.use('/', articlesRouter);
