@@ -3,7 +3,6 @@ const UnauthorizedError = require('../errors/unauthorizedError');
 const constants = require('../constants');
 
 const { JWT_SECRET } = require('../config');
-// const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
@@ -17,7 +16,6 @@ module.exports = (req, res, next) => {
 
   try {
     payload = jwt.verify(token, JWT_SECRET);
-    // NODE_ENV === 'production' ? JWT_SECRET : 'super-puper-dev-secret');
   } catch (err) {
     throw next(new UnauthorizedError(constants.NO_AUTH));
   }

@@ -15,7 +15,6 @@ const { PORT } = require('./config');
 
 const app = express();
 
-// mongoose.connect(HOST, {
 mongoose.connect('mongodb://localhost:27017/news-explorer', {
   useNewUrlParser: true,
   useCreateIndex: true,
