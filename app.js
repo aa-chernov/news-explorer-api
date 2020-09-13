@@ -12,7 +12,7 @@ const serverError = require('./middlewares/serverError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const whitelist = ['http://localhost:8080/', 'http://localhost:3000/', 'https://aa-chernov.github.io/news-explorer-frontend/pages/index.html#',
-  'https://aa-chernov.github.io', 'https://api.news-explorers.tk', 'https://news-explorers.tk', 'http://api.news-explorers.tk', 'http://news-explorers.tk'];
+  'https://aa-chernov.github.io/', 'https://api.news-explorers.tk/', 'https://news-explorers.tk/', 'http://api.news-explorers.tk', 'http://news-explorers.tk/'];
 
 const corsOptions = {
   origin(origin, callback) {
