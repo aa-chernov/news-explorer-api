@@ -20,12 +20,13 @@ module.exports.login = (req, res, next) => {
             { _id: user._id }, JWT_SECRET, { expiresIn: '7d' },
           );
           res
-            .cookie('jwt', token, {
-              maxAge: 3600000 * 24 * 7,
-              httpOnly: true,
-              sameSite: true,
-            })
-            .send({ _id: user._id, message: 'Авторизация выполнена успешно' });
+            // .cookie('jwt', token, {
+            //   maxAge: 3600000 * 24 * 7,
+            //   httpOnly: true,
+            //   sameSite: true,
+            // })
+            // .send({ _id: user._id, message: 'Авторизация выполнена успешно' });
+            .send({ jwt: token });
         })
         .catch(() => {
           next(new UnauthorizedError(constants.USER_DATA_ERROR));
@@ -58,7 +59,7 @@ module.exports.createUser = (req, res, next) => {
           name: user.name,
           email: user.email,
         },
-        message: `Создан пользователь: ${name}`,
+        // message: `Создан пользователь: ${name}`,
       }))
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
