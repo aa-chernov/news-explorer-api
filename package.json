@@ -1,6 +1,6 @@
 {
   "name": "news-explorer-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Диплом в Я.Практикуме. Бэкенд",
   "main": "app.js",
   "scripts": {

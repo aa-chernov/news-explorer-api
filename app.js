@@ -37,7 +37,6 @@ mongoose.connect('mongodb://localhost:27017/news-explorer', {
 
 app.use(helmet());
 app.use(cookieParser());
-// app.use(cors(corsOptions));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(requestLogger);
