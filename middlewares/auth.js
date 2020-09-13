@@ -1,31 +1,30 @@
-const jwt = require('jsonwebtoken');
-const UnauthorizedError = require('../errors/unauthorizedError');
-const constants = require('../constants');
+// const jwt = require('jsonwebtoken');
+// const UnauthorizedError = require('../errors/unauthorizedError');
+// const constants = require('../constants');
 
-const { JWT_SECRET } = require('../config');
+// const { JWT_SECRET } = require('../config');
 
-module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
+// module.exports = (req, res, next) => {
+//   const { authorization } = req.headers;
 
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    throw next(new UnauthorizedError(constants.NO_AUTH));
-  }
+//   if (!authorization || !authorization.startsWith('Bearer ')) {
+//     throw next(new UnauthorizedError(constants.NO_AUTH));
+//   }
 
-  const token = authorization.replace('Bearer ', '');
-  let payload;
+//   const token = authorization.replace('Bearer ', '');
+//   let payload;
 
-  try {
-    payload = jwt.verify(token, JWT_SECRET);
-  } catch (err) {
-    throw next(new UnauthorizedError(constants.NO_AUTH));
-  }
+//   try {
+//     payload = jwt.verify(token, JWT_SECRET);
+//   } catch (err) {
+//     throw next(new UnauthorizedError(constants.NO_AUTH));
+//   }
 
-  req.user = payload;
+//   req.user = payload;
 
-  next();
-};
+//   next();
+// };
 
-/*
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauthorizedError');
 const constants = require('../constants');
@@ -56,5 +55,3 @@ module.exports = (req, res, next) => {
 
   next();
 };
-
-*/
