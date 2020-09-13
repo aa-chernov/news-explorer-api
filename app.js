@@ -42,12 +42,12 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(requestLogger);
 // app.use(cors());
-app.use('/', cors(), articlesRouter);
-app.use('/', cors(), usersRouter);
-app.use('/', cors(), resourceRouter);
+app.use('/', articlesRouter);
+app.use('/', usersRouter);
+app.use('/', resourceRouter);
 app.use(errorLogger);
 app.use(errors());
-app.use('/', cors(), serverError);
+app.use('/', serverError);
 
 app.listen(PORT, () => {
   console.log(`Слушаем порт: ${PORT}`);
