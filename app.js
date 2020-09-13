@@ -14,20 +14,21 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT } = require('./config');
 
 const app = express();
+app.use(cors());
 
-const whitelist = ['http://localhost:8080/', 'http://localhost:3000/', 'https://aa-chernov.github.io/news-explorer-frontend/pages/index.html#',
-  'https://aa-chernov.github.io/', 'https://api.news-explorers.tk/', 'https://news-explorers.tk/', 'http://api.news-explorers.tk', 'http://news-explorers.tk/'];
+// const whitelist = ['http://localhost:8080/', 'http://localhost:3000/', 'https://aa-chernov.github.io/news-explorer-frontend/pages/index.html#',
+//   'https://aa-chernov.github.io/', 'https://api.news-explorers.tk/', 'https://news-explorers.tk/', 'http://api.news-explorers.tk', 'http://news-explorers.tk/'];
 
-const corsOptions = {
-  origin(origin, callback) {
-    // console.log(origin);
-    if (whitelist.includes(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
+// const corsOptions = {
+//   origin(origin, callback) {
+//     // console.log(origin);
+//     if (whitelist.includes(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+// };
 
 mongoose.connect('mongodb://localhost:27017/news-explorer', {
   useNewUrlParser: true,
@@ -35,18 +36,18 @@ mongoose.connect('mongodb://localhost:27017/news-explorer', {
   useFindAndModify: false,
 });
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(requestLogger);
 // app.use(cors());
-app.use('/', cors(corsOptions), articlesRouter);
-app.use('/', cors(corsOptions), usersRouter);
-app.use('/', cors(corsOptions), resourceRouter);
+app.use('/', articlesRouter);
+app.use('/', usersRouter);
+app.use('/', resourceRouter);
 app.use(errorLogger);
 app.use(errors());
-app.use('/', cors(corsOptions), serverError);
+app.use('/', serverError);
 
 app.listen(PORT, () => {
   console.log(`Слушаем порт: ${PORT}`);
