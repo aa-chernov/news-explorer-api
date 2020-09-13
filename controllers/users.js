@@ -59,7 +59,6 @@ module.exports.createUser = (req, res, next) => {
           name: user.name,
           email: user.email,
         },
-        // message: `Создан пользователь: ${name}`,
       }))
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
