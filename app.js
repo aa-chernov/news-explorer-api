@@ -39,7 +39,8 @@ const app = express();
 // };
 
 // app.use(cors(corsOptions));
-app.use(cors());
+// app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://news-explorers.tk' }));
 
 mongoose.connect('mongodb://localhost:27017/news-explorer', {
   useNewUrlParser: true,
